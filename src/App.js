@@ -14,9 +14,14 @@ const App = (props) => {
     // dispatch an action here to remove an item
   };
 
-  const buyItem = item => {
-    // dipsatch an action here to add an item
-  };
+  // misleading
+  // const buyItem = item => {
+  //   console.log("we are buying a feature")
+  //   console.log(item)
+  //   // supposed
+  //   addAditionalFeature()
+  //   // dipsatch an action here to add an item
+  // };
 
   return (
     <div className="boxes">
@@ -25,7 +30,10 @@ const App = (props) => {
         <AddedFeatures car={props.car} />
       </div>
       <div className="box">
-        <AdditionalFeatures additionalFeatures={props.additionalFeatures} />
+        <AdditionalFeatures
+          additionalFeatures={props.additionalFeatures}
+          // only works if the action creator is passed in and called direction
+          buyItem={props.addAditionalFeature}/>
         <Total car={props.car} additionalPrice={props.additionalPrice} />
       </div>
     </div>
@@ -43,6 +51,6 @@ const mapStateToProps = state => {
 }
 export default connect(
   mapStateToProps,
-  { addAditionalFeature}
+  { addAditionalFeature }
 )(App);
 // export default App;

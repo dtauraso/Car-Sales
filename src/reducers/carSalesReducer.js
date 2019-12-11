@@ -1,6 +1,8 @@
 const initialState = {
+    // this price isn't printed but used for Total Amount on app display
     additionalPrice: 0,
     car: {
+        // don't change this one
       price: 26395,
       name: '2019 Ford Mustang',
       image:
@@ -19,8 +21,32 @@ const initialState = {
     console.log(state, action);
     switch(action.type) {
         case 'ADD_ADDITIONAL_FEATURE':
+            console.log("we are ready to work")
+            console.log(action.payload.feature)
+            // let position = action.payload.feature.id - 1
+            let newAdditionalFeatures = state.additionalFeatures.filter(feature => 
+                feature.id !== action.payload.feature.id
+            )
+            // console.log(newAdditionalFeatures)
+            // console.log(action.payload.feature)
+            let newFeatures = [...state.car.features, action.payload.feature]
+            // console.log(newFeatures)
+            let newAdditionalPrice = state.additionalPrice + action.payload.feature.price
+            // console.log(newAdditionalPrice)
+            let newState = {
+                ...state,
+                additionalPrice: newAdditionalPrice,
+                car: {
+                    ...state.car,
+                    features: newFeatures
+                },
+                additionalFeatures : newAdditionalFeatures
+
+            }
+
+            // console.log(position)
             // change it here
-            return state
+            return newState
         default:
             return state;
     }
