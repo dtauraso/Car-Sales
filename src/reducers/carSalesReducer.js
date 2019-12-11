@@ -21,8 +21,8 @@ const initialState = {
     console.log(state, action);
     switch(action.type) {
         case 'ADD_ADDITIONAL_FEATURE':
-            console.log("we are ready to work")
-            console.log(action.payload.feature)
+            // console.log("we are ready to work")
+            // console.log(action.payload.feature)
             // let position = action.payload.feature.id - 1
             let newAdditionalFeatures = state.additionalFeatures.filter(feature => 
                 feature.id !== action.payload.feature.id
@@ -47,6 +47,29 @@ const initialState = {
             // console.log(position)
             // change it here
             return newState
+        case 'REMOVE_ADDITIONAL_FEATURE' :
+
+            console.log("ready to remove")
+            console.log(action.payload.feature)
+            let removedFeatures = state.car.features.filter(feature => 
+                feature.id !== action.payload.feature.id
+            )
+            console.log("removed a feature", removedFeatures)
+            let addedAdditionalFeatures = [...state.additionalFeatures, action.payload.feature]
+            console.log("added old featue", addedAdditionalFeatures)
+            let removedPrice = state.additionalPrice - action.payload.feature.price
+            console.log("revered price", removedPrice)
+            let reveredState = {
+                ...state,
+                additionalPrice: removedPrice,
+                car: {
+                    ...state.car,
+                    features: removedFeatures
+                },
+                additionalFeatures : addedAdditionalFeatures
+
+            }
+            return reveredState
         default:
             return state;
     }
